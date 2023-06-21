@@ -1,7 +1,7 @@
 # 
 # Checkin Asset using Asset ID
 #
-# Authored by: Joemel John A Diente <JoemelJohn.Diente@microchip.com>
+# Authored by: Joemel John A Diente 
 import json
 import requests
 import configparser
