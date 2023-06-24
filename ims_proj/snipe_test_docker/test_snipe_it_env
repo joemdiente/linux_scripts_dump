@@ -3,6 +3,7 @@ MYSQL_ROOT_PASSWORD=snipeit
 MYSQL_DATABASE=snipeit
 MYSQL_USER=snipeit
 MYSQL_PASSWORD=snipeit
+ALLOW_DATA_PURGE=true
 
 # Email Parameters
 # - the hostname/IP address of your mailserver
@@ -21,8 +22,8 @@ MAIL_ENV_PASSWORD=your_email_password
 # Snipe-IT Settings
 APP_ENV=production
 APP_DEBUG=false
-APP_KEY=base64:dR8uVYiN43uIcxgAyl6TAMN8Oo+0lFVsVBFpeJIkjss=
-APP_URL=http://127.0.0.1:8080
+APP_KEY=base64:8YQs1CLeuRfclPYEfMB0qOcRHKeUePUeuZ0V8qpzux8=
+APP_URL=http://192.168.137.1:8080
 APP_TIMEZONE=US/Pacific
 APP_LOCALE=en
   
