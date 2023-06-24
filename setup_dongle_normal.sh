@@ -1,3 +1,8 @@
+#!/bin/sh
+# Setting static IP to my devices
+#
+# Written by: Joemel John A. Diente <joemdiente@gmail.com>
+# 
 echo "setting up Dell Hub ETH to 192.168.137.5"
 sudo ip link set enx0c379676d506 down
 sudo ip addr add 192.168.137.5/24 dev enx0c379676d506

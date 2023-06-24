@@ -1,3 +1,4 @@
+#!/bin/sh
 #
 # Easy Deploy script snipe-it for testing purposes
 # Access snipe-it using localhost:8080
