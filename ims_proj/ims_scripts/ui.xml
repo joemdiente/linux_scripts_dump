@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<egt>
+	<theme>
+		<property name="type">SkyTheme</property>
+	</theme>
+	<widgets>
+		<widget name="Window0" type="TopWindow">
+			<property name="pixelformat">argb8888</property>
+			<property name="windowhint">automatic</property>
+			<property name="show">true</property>
+			<property name="width">800</property>
+			<property name="height">480</property>
+			<property name="fillflags">solid</property>
+			<widget name="Window2" type="Window">
+				<property name="pixelformat">argb8888</property>
+				<property name="windowhint">automatic</property>
+				<property name="show">true</property>
+				<property name="width">800</property>
+				<property name="height">480</property>
+				<property name="fillflags">solid</property>
+				<widget name="TextBox10" type="TextBox">
+					<property name="show">true</property>
+					<property name="x">117</property>
+					<property name="y">125</property>
+					<property name="width">387</property>
+					<property name="height">69</property>
+					<property name="padding">5</property>
+					<property name="border">2</property>
+					<property name="border_radius">4</property>
+					<property name="fillflags">blend</property>
+					<property name="text">Enter Username</property>
+					<property name="text_align">expand</property>
+					<property name="cursor">14</property>
+				</widget>
+				<widget name="Button11" type="Button">
+					<property name="show">true</property>
+					<property name="x">536</property>
+					<property name="y">122</property>
+					<property name="width">186</property>
+					<property name="height">70</property>
+					<property name="border_radius">4</property>
+					<property name="fillflags">blend</property>
+					<property name="text">Get Username</property>
+					<property name="text_align">center</property>
+				</widget>
+				<widget name="UserData" type="Label">
+					<property name="show">true</property>
+					<property name="x">111</property>
+					<property name="y">218</property>
+					<property name="width">388</property>
+					<property name="height">207</property>
+					<property name="text">User Data</property>
+					<property name="text_align">center</property>
+				</widget>
+			</widget>
+		</widget>
+	</widgets>
+</egt>
+
