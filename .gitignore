@@ -9,3 +9,7 @@ modules/hello_world.mod.c
 modules/hello_world.mod.o
 modules/hello_world.o
 modules/.hello_world.o.cmd
+modules/Module.symvers
+modules/modules.order
+.vscode-ctags
+vlan_info.temp
