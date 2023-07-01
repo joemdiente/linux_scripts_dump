@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<egt>
+	<theme>
+		<property name="type">SkyTheme</property>
+	</theme>
+	<font>
+		<property name="font" weight="normal" slant="normal" size="18.000000">Ubuntu</property>
+	</font>
+	<widgets>
+		<widget name="Window0" type="TopWindow">
+			<property name="pixelformat">argb8888</property>
+			<property name="windowhint">automatic</property>
+			<property name="show">true</property>
+			<property name="width">800</property>
+			<property name="height">480</property>
+			<property name="fillflags">solid</property>
+			<widget name="w1" type="Window">
+				<property name="pixelformat">argb8888</property>
+				<property name="windowhint">automatic</property>
+				<property name="show">true</property>
+				<property name="width">800</property>
+				<property name="height">480</property>
+				<property name="fillflags">solid</property>
+				<widget name="hbox-sizer-1" type="HorizontalBoxSizer">
+					<property name="orient">horizontal</property>
+					<property name="justify">none</property>
+					<property name="show">true</property>
+					<property name="width">800</property>
+					<property name="height">100</property>
+					<property name="align">top|expand_horizontal</property>
+					<widget name="ImageLabel10" type="ImageLabel">
+						<property name="show">true</property>
+						<property name="y">8</property>
+						<property name="width">361</property>
+						<property name="height">84</property>
+						<property name="align">left</property>
+						<property name="autoresize">false</property>
+						<property name="padding">10</property>
+						<property name="text">ImageLabel10</property>
+						<property name="text_align">center</property>
+						<property name="showlabel">false</property>
+						<property name="image" hscale="0.764543" vscale="0.761905">file:mchp-logo.png</property>
+						<property name="image_align">left|expand</property>
+					</widget>
+					<widget name="banner-1" type="Label">
+						<property name="show">true</property>
+						<property name="x">361</property>
+						<property name="width">439</property>
+						<property name="height">100</property>
+						<property name="align">center_vertical|expand_horizontal</property>
+						<property name="autoresize">false</property>
+						<property name="padding">10</property>
+						<property name="font" weight="normal" slant="normal" size="24.000000">Ubuntu</property>
+						<property name="text">PTC-CAE IMS Kiosk</property>
+						<property name="text_align">right|bottom</property>
+					</widget>
+				</widget>
+				<widget name="hbox-sizer-2" type="HorizontalBoxSizer">
+					<property name="orient">horizontal</property>
+					<property name="justify">middle</property>
+					<property name="show">true</property>
+					<property name="y">380</property>
+					<property name="width">800</property>
+					<property name="height">100</property>
+					<property name="align">bottom|expand_horizontal</property>
+					<widget name="textbox-user-1" type="TextBox">
+						<property name="show">true</property>
+						<property name="x">69</property>
+						<property name="y">12</property>
+						<property name="width">360</property>
+						<property name="height">75</property>
+						<property name="padding">5</property>
+						<property name="border">2</property>
+						<property name="border_radius">4</property>
+						<property name="fillflags">blend</property>
+						<property name="text">Type Badge ID here...</property>
+						<property name="text_align">expand</property>
+						<property name="cursor">21</property>
+					</widget>
+					<widget name="find-user-1" type="Button">
+						<property name="show">true</property>
+						<property name="x">429</property>
+						<property name="y">6</property>
+						<property name="width">162</property>
+						<property name="height">87</property>
+						<property name="autoresize">false</property>
+						<property name="margin">5</property>
+						<property name="border_radius">4</property>
+						<property name="fillflags">blend</property>
+						<property name="text">Find User</property>
+						<property name="text_align">center</property>
+					</widget>
+					<widget name="ok-1" type="Button">
+						<property name="show">true</property>
+						<property name="x">591</property>
+						<property name="y">6</property>
+						<property name="width">140</property>
+						<property name="height">87</property>
+						<property name="autoresize">false</property>
+						<property name="padding">5</property>
+						<property name="margin">5</property>
+						<property name="fillflags">blend</property>
+						<property name="text">Ok</property>
+						<property name="text_align">center</property>
+					</widget>
+				</widget>
+				<widget name="userdata-1" type="Label">
+					<property name="show">true</property>
+					<property name="x">35</property>
+					<property name="y">110</property>
+					<property name="width">430</property>
+					<property name="height">258</property>
+					<property name="text">IMS User Information</property>
+					<property name="text_align">left|expand_vertical</property>
+				</widget>
+			</widget>
+			<widget name="Window10" type="Window">
+				<property name="pixelformat">argb8888</property>
+				<property name="windowhint">automatic</property>
+				<property name="show">false</property>
+				<property name="width">800</property>
+				<property name="height">480</property>
+				<property name="fillflags">solid</property>
+				<widget name="hbox-sizer3" type="HorizontalBoxSizer">
+					<property name="orient">horizontal</property>
+					<property name="justify">middle</property>
+					<property name="show">true</property>
+					<property name="width">800</property>
+					<property name="height">100</property>
+					<property name="align">top|expand_horizontal</property>
+					<widget name="mchp-logo-2" type="ImageLabel">
+						<property name="show">true</property>
+						<property name="y">8</property>
+						<property name="width">361</property>
+						<property name="height">84</property>
+						<property name="padding">10</property>
+						<property name="text">ImageLabel19</property>
+						<property name="text_align">center</property>
+						<property name="showlabel">false</property>
+						<property name="image" hscale="0.764543" vscale="0.761905">file:mchp-logo.png</property>
+						<property name="image_align">left|expand</property>
+					</widget>
+					<widget name="Label15" type="Label">
+						<property name="show">true</property>
+						<property name="x">361</property>
+						<property name="width">439</property>
+						<property name="height">100</property>
+						<property name="align">center_vertical|expand_horizontal</property>
+						<property name="padding">10</property>
+						<property name="font" weight="normal" slant="normal" size="24.000000">Ubuntu</property>
+						<property name="text">PTC-CAE IMS Kiosk</property>
+						<property name="text_align">right|bottom</property>
+					</widget>
+				</widget>
+				<widget name="HorizontalBoxSizer12" type="HorizontalBoxSizer">
+					<property name="orient">horizontal</property>
+					<property name="justify">middle</property>
+					<property name="show">true</property>
+					<property name="y">380</property>
+					<property name="width">800</property>
+					<property name="height">100</property>
+					<property name="align">bottom|expand_horizontal</property>
+					<widget name="Button20" type="Button">
+						<property name="show">true</property>
+						<property name="x">95</property>
+						<property name="y">5</property>
+						<property name="width">304</property>
+						<property name="height">89</property>
+						<property name="margin">10</property>
+						<property name="border_radius">4</property>
+						<property name="fillflags">blend</property>
+						<property name="text">Get Asset Information</property>
+						<property name="text_align">center</property>
+					</widget>
+					<widget name="checkin-1" type="Button">
+						<property name="show">true</property>
+						<property name="x">399</property>
+						<property name="y">5</property>
+						<property name="width">148</property>
+						<property name="height">89</property>
+						<property name="margin">10</property>
+						<property name="border_radius">4</property>
+						<property name="fillflags">blend</property>
+						<property name="text">Check-in</property>
+						<property name="text_align">center</property>
+					</widget>
+					<widget name="checkout-1" type="Button">
+						<property name="show">true</property>
+						<property name="x">547</property>
+						<property name="y">5</property>
+						<property name="width">157</property>
+						<property name="height">89</property>
+						<property name="margin">10</property>
+						<property name="border_radius">4</property>
+						<property name="fillflags">blend</property>
+						<property name="text">Check-out</property>
+						<property name="text_align">center</property>
+					</widget>
+				</widget>
+				<widget name="Label19" type="Label">
+					<property name="show">true</property>
+					<property name="x">35</property>
+					<property name="y">110</property>
+					<property name="width">430</property>
+					<property name="height">260</property>
+					<property name="text">Asset Information</property>
+					<property name="text_align">left|expand_vertical</property>
+				</widget>
+			</widget>
+		</widget>
+	</widgets>
+</egt>
+
