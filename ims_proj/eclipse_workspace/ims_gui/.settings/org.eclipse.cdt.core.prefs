@@ -11,8 +11,15 @@ environment/project/cdt.managedbuild.config.gnu.cross.exe.release.1778242678.150
 environment/project/cdt.managedbuild.config.gnu.cross.exe.release.1778242678.1503185679/PKG_CONFIG_PATH/value=/usr/lib/pkgconfig/
 environment/project/cdt.managedbuild.config.gnu.cross.exe.release.1778242678.1503185679/append=true
 environment/project/cdt.managedbuild.config.gnu.cross.exe.release.1778242678.1503185679/appendContributed=true
+environment/project/cdt.managedbuild.config.gnu.cross.exe.release.1778242678.1790049357/append=true
+environment/project/cdt.managedbuild.config.gnu.cross.exe.release.1778242678.1790049357/appendContributed=true
 environment/project/cdt.managedbuild.config.gnu.cross.exe.release.1778242678.1965436087/append=true
 environment/project/cdt.managedbuild.config.gnu.cross.exe.release.1778242678.1965436087/appendContributed=true
+environment/project/cdt.managedbuild.config.gnu.cross.exe.release.1778242678.2139092751/LD_LIBRARY_PATH/delimiter=\:
+environment/project/cdt.managedbuild.config.gnu.cross.exe.release.1778242678.2139092751/LD_LIBRARY_PATH/operation=append
+environment/project/cdt.managedbuild.config.gnu.cross.exe.release.1778242678.2139092751/LD_LIBRARY_PATH/value=~/egt/src/.libs/\:$LD_LIBRARY_PATH.
+environment/project/cdt.managedbuild.config.gnu.cross.exe.release.1778242678.2139092751/append=true
+environment/project/cdt.managedbuild.config.gnu.cross.exe.release.1778242678.2139092751/appendContributed=true
 environment/project/cdt.managedbuild.config.gnu.cross.exe.release.1778242678.365703006/PKG_CONFIG_PATH/delimiter=\:
 environment/project/cdt.managedbuild.config.gnu.cross.exe.release.1778242678.365703006/PKG_CONFIG_PATH/operation=append
 environment/project/cdt.managedbuild.config.gnu.cross.exe.release.1778242678.365703006/PKG_CONFIG_PATH/value=/home/test/linux4sam/buildroot-at91/sama5d4_gfx_ims/host/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/pkgconfig/

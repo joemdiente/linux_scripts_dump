@@ -1,4 +1,3 @@
-ims_proj/mgc-egt-x86_64.AppImage
 modules/.hello_world.ko.cmd
 modules/.hello_world.mod.cmd
 modules/.hello_world.mod.o.cmd
@@ -13,3 +12,4 @@ modules/Module.symvers
 modules/modules.order
 .vscode-ctags
 vlan_info.temp
+ims_proj/mgc-egt-x86_64.AppImage
