@@ -1,1 +1,15 @@
 ims_proj/mgc-egt-x86_64.AppImage
+modules/.hello_world.ko.cmd
+modules/.hello_world.mod.cmd
+modules/.hello_world.mod.o.cmd
+modules/.Module.symvers.cmd
+modules/.modules.order.cmd
+modules/hello_world.mod
+modules/hello_world.mod.c
+modules/hello_world.mod.o
+modules/hello_world.o
+modules/.hello_world.o.cmd
+modules/Module.symvers
+modules/modules.order
+.vscode-ctags
+vlan_info.temp

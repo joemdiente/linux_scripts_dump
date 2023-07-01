@@ -7,6 +7,7 @@
 #Variables
 ret=0
 temp_file="vlan_info.temp"
+embedded=0
 
 #===No Argument
 if [ "$#" -eq 0 ];
@@ -72,7 +73,12 @@ if [ "$1" = "init" ];
     then
         #Load 802.1Q VLAN Kernel Module
         echo "Status: loading 802.1q module"
-        sudo modprobe 8021q   
+        if [ $embedded -eq 1 ]
+            then
+                modprobe 8021q
+        else
+            sudo modprobe 8021q   
+        fi
 
         #Check if Module was loaded
         lsmod | grep -q 8021q
@@ -129,7 +135,12 @@ if [ "$1" = "add" ];
                 echo "Creating VLAN.."
                 
                 #Proceed with creating VLAN
-                sudo ip link add link "$2" name vlan."$3" type vlan id "$3"
+                if [ $embedded -eq 1 ]
+                    then
+                        ip link add link "$2" name vlan."$3" type vlan id "$3"
+                else
+                    sudo ip link add link "$2" name vlan."$3" type vlan id "$3"
+                fi
                 ret=$?
 
                 if [ $ret -eq 0 ]        

@@ -4,15 +4,25 @@
 #include <linux/module.h>
 #include <linux/kernel.h>
 
+static char *whom = "world";
+module_param(whom, charp, 0644);
+MODULE_PARM_DESC(whom, "Recipient of the hello message");
+
+static int howmany = 1;
+module_param(howmany, int, 0644);
+MODULE_PARM_DESC(howmany, "Number of greetings");
+
 static int __init hello_init(void)
 {
-    pr_alert("Good morrow to this fair assembly.\n");
+    int i;
+    for (i = 0; i < howmany; i++)
+        pr_alert("(%d) Hello, %s\n", i, whom);
     return 0;
 }
 
 static void __exit hello_exit(void)
 {
-    pr_alert("Alas, poor world, what treasure hast thou lost!\n");
+    pr_alert("Goodbye, cruel %s\n", whom);
 }
 
 module_init(hello_init);
