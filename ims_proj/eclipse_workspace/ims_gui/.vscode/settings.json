@@ -67,6 +67,11 @@
         "cinttypes": "cpp",
         "typeindex": "cpp",
         "typeinfo": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "unordered_set": "cpp",
+        "regex": "cpp",
+        "ui": "cpp",
+        "forward_list": "cpp",
+        "valarray": "cpp"
     }
 }
