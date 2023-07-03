@@ -6,13 +6,33 @@
 
 #include <cstdlib>
 
-// Inventory Management API Header
-#include "include/ims_api.h"
-
+/**
+ * Nlohmann JSON
+ * GitHub: https://github.com/nlohmann/json
+ * Available in Buildroot
+ *
+*/
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
-
 #define DEBUG_JSON() std::cout << j.dump(4) << std::endl
+
+/**
+ * OpenCV3
+ * 
+*/
+#include <opencv2/objdetect.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <iostream>
+ 
+using namespace cv;
+using namespace std;
+/**
+ * Inventory Management API Header
+ * 
+ */
+#include "include/ims_api.h"
 /*
  * main program
  */
@@ -27,8 +47,9 @@ int main(int argc, char** argv)
 
     auto label = window->find_child<egt::Label>("userdata-1");
 
-	auto button = window->find_child<egt::Button>("ok-1");
+	auto button = window->find_child<egt::Button>("find-user-1");
 
+	auto frame = window->find_child<egt::Button>("frame-1");
 	//Start of Test
 
 	//Use ims_api test
@@ -41,6 +62,7 @@ int main(int argc, char** argv)
 	{
 		if (label->visible())
 		{
+			
 			//Get User Details 
 			nlohmann::json j =ims_api_instance.get_userdetails();
 			j.dump(4);
@@ -60,6 +82,8 @@ int main(int argc, char** argv)
 			label->visible(true);
 
 	});
+
+	
 
     window->show();
     return app.run();
