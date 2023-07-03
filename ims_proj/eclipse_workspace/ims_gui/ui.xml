@@ -14,6 +14,14 @@
 			<property name="width">800</property>
 			<property name="height">480</property>
 			<property name="fillflags">solid</property>
+			<widget name="Window10" type="Window">
+				<property name="pixelformat">argb8888</property>
+				<property name="windowhint">automatic</property>
+				<property name="show">false</property>
+				<property name="width">800</property>
+				<property name="height">480</property>
+				<property name="fillflags">solid</property>
+			</widget>
 			<widget name="w1" type="Window">
 				<property name="pixelformat">argb8888</property>
 				<property name="windowhint">automatic</property>
@@ -104,15 +112,32 @@
 						<property name="text_align">center</property>
 					</widget>
 				</widget>
-				<widget name="userdata-1" type="Label">
+				<widget name="hbox-sizer-3" type="HorizontalBoxSizer">
+					<property name="orient">horizontal</property>
+					<property name="justify">middle</property>
 					<property name="show">true</property>
-					<property name="x">34</property>
-					<property name="y">110</property>
-					<property name="width">430</property>
-					<property name="height">258</property>
-					<property name="font" weight="normal" slant="normal" size="16.000000">Ubuntu</property>
-					<property name="text">IMS User Information</property>
-					<property name="text_align">left|top</property>
+					<property name="y">100</property>
+					<property name="width">800</property>
+					<property name="height">280</property>
+					<widget name="userdata-1" type="Label">
+						<property name="show">true</property>
+						<property name="x">39</property>
+						<property name="y">11</property>
+						<property name="width">430</property>
+						<property name="height">258</property>
+						<property name="align">center_vertical|left</property>
+						<property name="font" weight="normal" slant="normal" size="16.000000">Ubuntu</property>
+						<property name="text">IMS User Information</property>
+						<property name="text_align">left|top</property>
+					</widget>
+					<widget name="frame-1" type="Frame">
+						<property name="show">true</property>
+						<property name="x">469</property>
+						<property name="y">11</property>
+						<property name="width">292</property>
+						<property name="height">258</property>
+						<property name="align">center_vertical|right</property>
+					</widget>
 				</widget>
 			</widget>
 		</widget>
