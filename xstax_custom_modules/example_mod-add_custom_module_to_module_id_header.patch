@@ -1,0 +1,14 @@
+diff --git a/vtss_appl/include/vtss/appl/module_id.h b/vtss_appl/include/vtss/appl/module_id.h
+index 87595da..652133e 100644
+--- a/vtss_appl/include/vtss/appl/module_id.h
++++ b/vtss_appl/include/vtss/appl/module_id.h
+@@ -212,7 +212,8 @@ enum {
+     VTSS_MODULE_ID_FRER                 = 157,
+     VTSS_MODULE_ID_KR                   = 158,
+     VTSS_MODULE_ID_IEC_MRP              = 159,
+-    VTSS_MODULE_ID_CUST_0               = 160, // Customer Module ID #0. Not used by MCHP-distributed code.
++    VTSS_MODULE_ID_EXAMPLE_MOD          = 160,
++    // VTSS_MODULE_ID_CUST_0               = 160, // Customer Module ID #0. Not used by MCHP-distributed code.
+     VTSS_MODULE_ID_CUST_1               = 161, // Customer Module ID #1. Not used by MCHP-distributed code
+     VTSS_MODULE_ID_CUST_2               = 162, // Customer Module ID #2. Not used by MCHP-distributed code
+     VTSS_MODULE_ID_CUST_3               = 163, // Customer Module ID #3. Not used by MCHP-distributed code

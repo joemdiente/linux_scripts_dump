@@ -1,0 +1,45 @@
+! ===== Beginning of Include
+INCLUDE_BEGIN
+#include "example_mod_api.h"
+#define PRINTF (void)icli_session_self_printf
+INCLUDE_END
+! ===== End of include
+
+! ===== Beginning of Command
+CMD_BEGIN
+
+COMMAND = example mod <14-1500>
+PRIVILEGE = ICLI_PRIVILEGE_15
+
+CMD_MODE = ICLI_CMD_MODE_EXEC
+
+! Notes:
+!   First two blank CMD_VAR is "example" and "mod" respectively.
+!   packet_len must be >= 14. (Please see line 446 packet_api.h)
+!
+CMD_VAR =
+CMD_VAR =
+CMD_VAR = packet_len
+
+! Beginning of the Code
+CODE_BEGIN
+{
+    PRINTF("Hello World, ICLI Self Print\n");
+    PRINTF("Transmit Broadcast Frame\n");
+    if(packet_len < 14)
+    {
+        //Should not go here since COMMAND already captured the boundaries.
+        PRINTF("packet_len must be >= 14");
+    }
+    else
+    {
+        example_mod_packet_transmit(packet_len);
+        PRINTF("Transmit Done\n");
+    }
+
+}
+CODE_END
+! End of the Code
+
+CMD_END
+! ===== End of Command

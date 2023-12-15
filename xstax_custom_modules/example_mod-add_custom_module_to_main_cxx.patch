@@ -1,0 +1,25 @@
+diff --git a/vtss_appl/main/main.cxx b/vtss_appl/main/main.cxx
+index 4ab3358..9ac7627 100644
+--- a/vtss_appl/main/main.cxx
++++ b/vtss_appl/main/main.cxx
+@@ -59,6 +59,10 @@
+ #include "vtss_alloc.h"
+ #include "main_trace.h"
+ 
++#ifdef VTSS_SW_OPTION_EXAMPLE_MOD
++#include "example_mod_api.h"
++#endif 
++
+ #ifdef VTSS_SW_OPTION_CLI
+ #include "cli_io_api.h"
+ #endif
+@@ -582,6 +586,9 @@ static struct {
+     vtss_tick_count_t max_callback_ticks;
+     init_cmd_t        max_callback_cmd;
+ } initfun[] = {
++#ifdef VTSS_SW_OPTION_EXAMPLE_MOD
++    INITFUN(example_mod_init)
++#endif
+ #ifdef VTSS_FEATURE_HEAP_WRAPPERS
+     INITFUN(vtss_alloc_init)
+ #endif

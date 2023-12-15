@@ -1,0 +1,24 @@
+diff --git a/vtss_appl/util/vtss_module_id.cxx b/vtss_appl/util/vtss_module_id.cxx
+index dc2e194..7785ecb 100644
+--- a/vtss_appl/util/vtss_module_id.cxx
++++ b/vtss_appl/util/vtss_module_id.cxx
+@@ -191,7 +191,8 @@ const char * const vtss_module_names[VTSS_MODULE_ID_NONE + 1] =
+     [VTSS_MODULE_ID_FRER]                  /* 157 */ = "FRER",
+     [VTSS_MODULE_ID_KR]                    /* 158 */ = "KR",
+     [VTSS_MODULE_ID_IEC_MRP]               /* 159 */ = "IEC_MRP",
+-    [VTSS_MODULE_ID_CUST_0]                /* 160 */ = "CUST_0",
++    [VTSS_MODULE_ID_EXAMPLE_MOD]           /* 160 */ = "Example_Mod",
++    // [VTSS_MODULE_ID_CUST_0]                /* 160 */ = "CUST_0",
+     [VTSS_MODULE_ID_CUST_1]                /* 161 */ = "CUST_1",
+     [VTSS_MODULE_ID_CUST_2]                /* 162 */ = "CUST_2",
+     [VTSS_MODULE_ID_CUST_3]                /* 163 */ = "CUST_3",
+@@ -546,7 +547,8 @@ const int vtss_priv_lvl_groups_filter[VTSS_MODULE_ID_NONE+1] =
+     /*[VTSS_MODULE_ID_FRER]                  157 */ 1,
+     /*[VTSS_MODULE_ID_KR]                    158 */ 1,
+     /*[VTSS_MODULE_ID_IEC_MRP]               159 */ 1,
+-    /*[VTSS_MODULE_ID_CUST_0]                160 */ 1,
++    /*[VTSS_MODULE_ID_EXAMPLE_MOD]           160 */ 1,
++    // /*[VTSS_MODULE_ID_CUST_0]                160 */ 1,
+     /*[VTSS_MODULE_ID_CUST_1]                161 */ 1,
+     /*[VTSS_MODULE_ID_CUST_2]                162 */ 1,
+     /*[VTSS_MODULE_ID_CUST_3]                163 */ 1,
