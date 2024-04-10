@@ -1,21 +1,20 @@
-# 
 #
-#
-#   This scripts setups your target board for PublicKeyAuthentication using OpenSSH
-#
-#
-#
-#
+#  This script setups your target board for PublicKeyAuthentication using OpenSSH
+#  It should be placed where ./target/ folder is located.
+#  Host setup:
+#  install OpenSSH
+#  generate key-pair using command "ssh-keygen rsa"
+#   This script is for OpenSSH client and OpenSSH Server
 #
 
-echo "This should be run where "target/" folder can be found"
+echo "This script should be run where "target/" folder can be found"
 
 echo "Clearing pre-existing keys"
 rm ./id_rsa*
 echo "Clearing pre-setup"
 rm -rf ./target/root/.ssh/
 
-# Pre-generate its own ssh keys
+# Pre-generate its own OpenSSH key
 ssh-keygen -t rsa -f id_rsa
 
 echo "Creating target .ssh directory"
