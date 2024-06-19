@@ -1,0 +1,2 @@
+====Command to copy remotely and run command remotely
+rsync -av ./read.py root@192.168.137.150:~/ && ssh root@192.168.137.150 'python3 read.py'
