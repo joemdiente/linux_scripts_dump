@@ -1,0 +1,25 @@
+{
+    "method": "ptp.config.clocks.defaultDs.add",
+    "params": [
+        0,
+        {
+            "deviceType": "ordBound",
+            "twoStepFlag": false,
+            "priority1": 128,
+            "priority2": 128,
+            "oneWay": false,
+            "domainNumber": 0,
+            "protocol": "ethernet",
+            "vid": 1,
+            "pcp": 0,
+            "mep": 1,
+            "clkDom": 0,
+            "dscp": 0,
+            "profile": "ieee1588",
+            "localPriority": 128,
+            "filterType": "basicPhaseLow",
+            "pathTraceEnable": false
+        }
+    ],
+    "id": "jsonrpc"
+}

@@ -1,0 +1,7 @@
+{
+    "method": "ptp.config.clocks.defaultDs.get",
+    "params": [
+        "0"
+    ],
+    "id": "jsonrpc"
+}
