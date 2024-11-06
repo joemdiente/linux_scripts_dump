@@ -1,0 +1,19 @@
+###################################################
+#
+#   This is file should be placed <xstax>/src/build/make/
+#
+#   Need to add "Custom/AddModules := example_mod"
+#   in config.mk so the module will be compiled.
+#
+###################################################
+# Replace MODULE_ID_CUST_0 
+MODULE_ID_example_mod := 160
+
+DIR_example_mod := $(DIR_APPL)/example_mod
+
+OBJECTS_example_mod := example_mod.o
+
+$(OBJECTS_example_mod): %.o: $(DIR_example_mod)/%.cxx
+	$(call compile_cxx,$(MODULE_ID_example_mod), $@, $<)
+
+INCLUDES += -I$(DIR_example_mod)
