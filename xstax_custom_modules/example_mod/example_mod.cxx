@@ -27,7 +27,28 @@
 #include "microchip/ethernet/common.h"
 #include "vtss/appl/module_id.h"
 
+#include "stdlib.h"
+#include "string.h"
+
 extern "C" int example_mod_icli_cmd_register();
+
+/* System Command Linux Shell Function */
+mesa_rc example_mod_system_command(char* example_mod_cmd)
+{
+    char* sys_cmd = "sys_cmd\r\n";
+    // memset(sys_cmd, 0x00, sizeof(*sys_cmd));
+    printf("Linux Shell Command: %s \r\n",example_mod_cmd);
+
+    // snprintf(sys_cmd, sizeof(sys_cmd),"echo test");
+    printf(sys_cmd);
+    // system("echo 1");
+
+    /* 
+    working add vlan
+    ip link add link vtss.ifh name vlan.test.99 type vlan id 99
+     */
+    return MESA_RC_OK;
+}
 
 /* Packet Transmit Function */
 mesa_rc example_mod_packet_transmit(u32 packet_len)

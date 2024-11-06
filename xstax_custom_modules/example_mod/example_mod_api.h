@@ -26,5 +26,6 @@
 
 mesa_rc example_mod_init(vtss_init_data_t *data);
 mesa_rc example_mod_packet_transmit(u32 packet_len);
+mesa_rc example_mod_system_command(char* cmd);
 
 #endif /* _HELLO_WORLD_API_H_ */

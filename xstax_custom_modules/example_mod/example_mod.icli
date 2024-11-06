@@ -1,14 +1,14 @@
-! ===== Beginning of Include
+! ===== Beginning of Include 
 INCLUDE_BEGIN
 #include "example_mod_api.h"
 #define PRINTF (void)icli_session_self_printf
 INCLUDE_END
 ! ===== End of include
 
-! ===== Beginning of Command
+! ===== Beginning of Command !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!(TRANSMIT PACKET CUSTOM LENGTH EXAMPLE)
 CMD_BEGIN
 
-COMMAND = example mod <14-1500>
+COMMAND = example mod tx-pkt length <14-1500>
 PRIVILEGE = ICLI_PRIVILEGE_15
 
 CMD_MODE = ICLI_CMD_MODE_EXEC
@@ -19,7 +19,14 @@ CMD_MODE = ICLI_CMD_MODE_EXEC
 !
 CMD_VAR =
 CMD_VAR =
+CMD_VAR =
+CMD_VAR =
 CMD_VAR = packet_len
+
+HELP = Custom Module
+HELP = Show available test commands.
+HELP = Transmit Packet with n length.
+HELP = packet_len must be >= 14.
 
 ! Beginning of the Code
 CODE_BEGIN
@@ -37,6 +44,42 @@ CODE_BEGIN
         PRINTF("Transmit Done\n");
     }
 
+}
+CODE_END
+! End of the Code
+
+CMD_END
+! ===== End of Command
+
+! ===== Beginning of Command !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!(SYS_CMD EXAMPLE)
+CMD_BEGIN
+
+COMMAND = example mod sys-cmd <string256>
+PRIVILEGE = ICLI_PRIVILEGE_15
+
+CMD_MODE = ICLI_CMD_MODE_EXEC
+
+! Notes:
+!   First two blank CMD_VAR is "example" and "mod" respectively.
+!
+CMD_VAR =
+CMD_VAR =
+CMD_VAR =
+CMD_VAR = example_mod_syscmd
+
+HELP = 
+HELP = 
+HELP = Use system()
+HELP = Make sure that the string is a valid linux shell command and should be enclosed with \" \".
+
+! Beginning of the Code
+CODE_BEGIN
+{
+    PRINTF("example_mod: using SYS_CMD()\n");
+    PRINTF("This will run your string in Linux Shell\n");
+    PRINTF("This could be a vulnerability. Should only be used for testing\n");
+
+    example_mod_system_command(example_mod_syscmd);
 }
 CODE_END
 ! End of the Code
