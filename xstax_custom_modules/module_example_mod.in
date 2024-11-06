@@ -13,6 +13,8 @@ DIR_example_mod := $(DIR_APPL)/example_mod
 
 OBJECTS_example_mod := example_mod.o
 
+$(eval $(call add_icli,$(MODULE_ID_example_mod),$(DIR_example_mod)/example_mod.icli))
+
 $(OBJECTS_example_mod): %.o: $(DIR_example_mod)/%.cxx
 	$(call compile_cxx,$(MODULE_ID_example_mod), $@, $<)
 
