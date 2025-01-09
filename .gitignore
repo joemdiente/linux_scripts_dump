@@ -16,3 +16,4 @@ ims_proj/mgc-egt-x86_64.AppImage
 ims_proj/eclipse_workspace/ims_gui/main
 ims_proj/composer.log
 app_testing/helloworld_vsc
+mdio_bitbang_cm4/*.dtbo
