@@ -1,6 +1,8 @@
 #!/bin/sh
 
 echo "[Script Prompt] Cleaning up previous build...."
+echo "[Script Prompt] Make sure you are running this script on Raspberry Pi CM4"
+echo "[Script Prompt] TODO: Check if /proc/device-tree/model contains \"Raspberry Pi\""
 sudo rm -rf ./*.dtbo
 echo "[Script Prompt] Running DTC...."
 sudo dtc -@ -I dts -O dtb -o mdio-gpio-cm4.dtbo mdio-gpio-cm4.dtso
