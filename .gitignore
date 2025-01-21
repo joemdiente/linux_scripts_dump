@@ -17,3 +17,5 @@ ims_proj/eclipse_workspace/ims_gui/main
 ims_proj/composer.log
 app_testing/helloworld_vsc
 mdio_bitbang_cm4/*.dtbo
+mdio_bitbang_cm4/a.out
+mdio_bitbang_cm4/mepa_mdio-tool_connector
