@@ -10,6 +10,9 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #define STANDALONE_TEST
 
 /* mdio-tools (mt_) read function*/
@@ -18,7 +21,7 @@ int mt_miim_read (uint8_t addr, uint16_t *const value)
     return -1;
 }
 /* mdio-tools (mt_) read function*/
-int mt_miim_write (uint_t addr, uint16_t value)
+int mt_miim_write (uint8_t addr, uint16_t value)
 {
     return -1;
 }
@@ -28,7 +31,23 @@ int mt_miim_write (uint_t addr, uint16_t value)
 
 int main () {
 
-    printf("test printf\r\n");
+    char *buffer; //Buffer for storing shell output
+    size_t len;
+    int rc;
+    FILE *pipe = popen("sudo mdio -h", "r");
+
+    if (pipe == NULL) {
+        perror("popen() failed");
+        return -1;
+    }
+    
+    while ((rc = getline(&buffer, &len, pipe)) != -1) {
+        printf("%s", buffer); 
+    }
+
+    // output[strcspn(output,"\n")] = 0;
+
+    pclose(pipe);
     return 0;
 }
 #endif /* TEST */
