@@ -19,3 +19,5 @@ app_testing/helloworld_vsc
 mdio_bitbang_cm4/*.dtbo
 mdio_bitbang_cm4/a.out
 mdio_bitbang_cm4/mepa_mdio-tool_connector
+.vscode/settings.json
+.vscode/tasks.json
