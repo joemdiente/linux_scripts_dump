@@ -14,7 +14,8 @@
 #include <string.h>
 #include <ctype.h>
 
-#define STANDALONE_TEST
+/* Define here */
+#define TEST
 #define DEBUG 1
 
 /* Got from https://stackoverflow.com/questions/1941307/debug-print-macro-in-c
@@ -27,10 +28,67 @@
  #define DEBUG_PRINT(fmt, args...) /* Don't do anything in release builds */
 #endif
 
-uint16_t hex_string_to_uint16(const char* hex_str);
+#ifdef TEST
+/* 
+ * pseudo mepa-callout-ctx struct 
+ */
+typedef struct pseudo_mepa_callout_ctx {
+    uint8_t inst;
+    uint8_t port_no;
+    uint8_t miim_controller;
+    uint8_t miim_addr;
+    uint8_t chip_no;
+} pseudo_mepa_callout_ctx_t;
+
+typedef uint8_t mepa_rc;
+typedef mepa_rc (*mepa_miim_read_t)(struct pseudo_mepa_callout_ctx          *ctx,
+                                    const uint8_t                     addr,
+                                    uint16_t                         *const value);
+typedef mepa_rc (*mepa_miim_write_t)(struct pseudo_mepa_callout_ctx         *ctx,
+                                    const uint8_t                    addr,
+                                    const uint16_t                   value);
+
+/* 
+ * pseudo mepa-callout struct 
+ */
+typedef struct pseudo_mepa_callout {
+    mepa_miim_read_t mepa_miim_read;
+    mepa_miim_write_t mepa_miim_write;
+} pseudo_mepa_callout_t;
+
+#endif /* TEST */
+
+/* 
+ * Came from from gemini.google.com
+ * Used by connector for converting string output from mdio-tools to uint16
+ */
+uint16_t hex_string_to_uint16(const char* hex_str) {
+    // Remove the "0x" prefix if present
+    char* stripped_str = strdup(hex_str); 
+    if (stripped_str[0] == '0' && stripped_str[1] == 'x') {
+        memmove(stripped_str, stripped_str + 2, strlen(stripped_str) - 1); 
+    }
+
+    if (strlen(stripped_str) != 4) {
+        fprintf(stderr, "Error: Invalid hex string length. Expected 4 characters.\n");
+        free(stripped_str); 
+        return -1; 
+    }
+
+    char high_byte[3] = {stripped_str[0], stripped_str[1], '\0'};
+    char low_byte[3] = {stripped_str[2], stripped_str[3], '\0'};
+
+    uint8_t high_byte_val = (uint8_t)strtol(high_byte, NULL, 16);
+    uint8_t low_byte_val = (uint8_t)strtol(low_byte, NULL, 16);
+
+    free(stripped_str); 
+
+    return (uint16_t)((high_byte_val << 8) | low_byte_val);
+}
+
 
 /* mdio-tools (mt_) read function*/
-int mt_miim_read (uint8_t addr, uint16_t *const value)
+mepa_rc mt_miim_read (struct pseudo_mepa_callout_ctx *ctx, uint8_t addr, uint16_t *const value)
 {
     char output[1024]; //Buffer for storing shell output
     char command[2048];
@@ -73,7 +131,7 @@ int mt_miim_read (uint8_t addr, uint16_t *const value)
     return -1;
 }
 /* mdio-tools (mt_) read function*/
-int mt_miim_write (uint8_t addr, uint16_t value)
+mepa_rc mt_miim_write (struct pseudo_mepa_callout_ctx *ctx, uint8_t addr, uint16_t value)
 {
     char command[2048];
     char output[512];
@@ -107,47 +165,25 @@ int mt_miim_write (uint8_t addr, uint16_t value)
 }
 
 
-#ifdef STANDALONE_TEST
-
-//From gemini.google.com
-uint16_t hex_string_to_uint16(const char* hex_str) {
-    // Remove the "0x" prefix if present
-    char* stripped_str = strdup(hex_str); 
-    if (stripped_str[0] == '0' && stripped_str[1] == 'x') {
-        memmove(stripped_str, stripped_str + 2, strlen(stripped_str) - 1); 
-    }
-
-    if (strlen(stripped_str) != 4) {
-        fprintf(stderr, "Error: Invalid hex string length. Expected 4 characters.\n");
-        free(stripped_str); 
-        return -1; 
-    }
-
-    char high_byte[3] = {stripped_str[0], stripped_str[1], '\0'};
-    char low_byte[3] = {stripped_str[2], stripped_str[3], '\0'};
-
-    uint8_t high_byte_val = (uint8_t)strtol(high_byte, NULL, 16);
-    uint8_t low_byte_val = (uint8_t)strtol(low_byte, NULL, 16);
-
-    free(stripped_str); 
-
-    return (uint16_t)((high_byte_val << 8) | low_byte_val);
-}
-
+#ifdef TEST
 int main () {
 
     uint16_t reg_value;
-    
-    DEBUG_PRINT("[Main] Starting STANDALONE_TEST\r\n");
+    struct pseudo_mepa_callout test_callout;
+    struct pseudo_mepa_callout_ctx *test_callout_ctx;
+    DEBUG_PRINT("[Main] Starting TEST\r\n");
 
-    mt_miim_read(0x2,&reg_value);
+    test_callout.mepa_miim_read = mt_miim_read;
+    test_callout.mepa_miim_write = mt_miim_write;
+
+    test_callout.mepa_miim_read(test_callout_ctx,0x2,&reg_value);
     printf("%i\r\n", reg_value);
 
-    if(mt_miim_write(0x0, 0x7040) != -1) {
+    if(mt_miim_write(test_callout_ctx, 0x0, 0x7040) != -1) {
          printf("mt_miim_write success. \r\n");
     }
 
-    mt_miim_read(0x0,&reg_value);
+    mt_miim_read(test_callout_ctx, 0x0,&reg_value);
      printf("%i\r\n", reg_value);
 
     return 0;
