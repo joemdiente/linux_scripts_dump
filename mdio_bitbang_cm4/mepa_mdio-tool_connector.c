@@ -16,7 +16,7 @@
 
 /* Define here */
 #define TEST
-#define DEBUG 1
+// #define DEBUG 1
 
 /* Got from https://stackoverflow.com/questions/1941307/debug-print-macro-in-c
  * #define DEBUG greater than 0 to use DEBUG_PRINT()
@@ -169,22 +169,54 @@ mepa_rc mt_miim_write (struct pseudo_mepa_callout_ctx *ctx, uint8_t addr, uint16
 int main () {
 
     uint16_t reg_value;
+    uint8_t reg_addr;
     struct pseudo_mepa_callout test_callout;
     struct pseudo_mepa_callout_ctx *test_callout_ctx;
+
+    test_callout_ctx = (struct pseudo_mepa_callout_ctx *)malloc(sizeof(struct pseudo_mepa_callout_ctx));
+
+    if (test_callout_ctx == NULL) {
+        // Handle memory allocation failure (e.g., print an error message and exit)
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(1); 
+    }
+    
     DEBUG_PRINT("[Main] Starting TEST\r\n");
 
+    //Setup callout
     test_callout.mepa_miim_read = mt_miim_read;
     test_callout.mepa_miim_write = mt_miim_write;
 
-    test_callout.mepa_miim_read(test_callout_ctx,0x2,&reg_value);
-    printf("%i\r\n", reg_value);
+    //Setup callout context 
+    test_callout_ctx->inst = (uintptr_t)NULL;
+    // test_callout_ctx->miim_controller = APPL_miim_controller; //Not Implemented
+    test_callout_ctx->port_no = 0;
+    test_callout_ctx->miim_addr = 0;
+    test_callout_ctx->chip_no = 0;
+    // test_callout_ctx->meba_inst = NULL; //Not implemented
 
-    if(mt_miim_write(test_callout_ctx, 0x0, 0x7040) != -1) {
-         printf("mt_miim_write success. \r\n");
+    //Test miim read of register 02h
+    reg_addr = 0x02;
+    test_callout.mepa_miim_read(test_callout_ctx,reg_addr,&reg_value);
+    printf("miim_read: 0x%X\r\n", reg_value);
+
+    //Test miim write of register 00h
+    reg_addr = 0x00;
+    if(test_callout.mepa_miim_write(test_callout_ctx, reg_addr, 0x7040) != -1) {
+         printf("miim_write success. \r\n");
+    }
+    else {
+        printf("miim_write failed \r\n");
+        return -1;
     }
 
-    mt_miim_read(test_callout_ctx, 0x0,&reg_value);
-     printf("%i\r\n", reg_value);
+    //Read register 00h for verification
+    test_callout.mepa_miim_read(test_callout_ctx, reg_addr,&reg_value);
+     printf("miim_read: 0x%X\r\n", reg_value);
+    
+    if (reg_value != 0x7040) {
+        printf("value not the same as written.\r\n");
+    }
 
     return 0;
 }
