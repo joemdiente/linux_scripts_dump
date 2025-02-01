@@ -1,0 +1,62 @@
+/* 
+ * Device Tree overlay for MDIO Bitbang using GPIO
+ * on Raspberry Pi Compute Module 4 IO Board
+ * Pinout:
+ *      MDIO - GPIO22 (GPIO Header Pin 13)
+ *      MDC - GPIO27 (GPIO Header Pin 15)
+ * Author: Joemel John Diente <joemdiente@gmail.com>
+ *
+ */
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			mdio0: mdio {
+				compatible = "virtual,mdio-gpio";
+				#address-cells = <1>;
+				#size-cells = <0>;
+				gpios = <&gpio 27 1>, <&gpio 22 0>; //MDC, MDIO
+				/* https://www.kernel.org/doc/Documentation/devicetree/bindings/gpio/gpio.txt */
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&aliases>;
+		__overlay__ {
+				mdio-gpio0 = "/mdio";
+		};
+	};
+
+	/*
+	 * https://www.kernel.org/doc/Documentation/devicetree/bindings/pinctrl/brcm,bcm2835-gpio.txt
+	 * brcm,function: Integer, containing the function to mux to the pin(s):
+	 *  0: GPIO in
+	 *  1: GPIO out
+	 */
+	fragment@2 {
+		target = <&gpio>;
+		__overlay__ {
+			mdio-gpio0-mdc {
+				brcm,pins = <27>;
+				brcm,function = <1>; 
+				brcm,pull = <0>;
+				label = "mdio-gpio-mdc";
+			};
+
+			mdio-gpio0-mdio {
+				brcm,pins = <22>;
+				brcm,function = <0>; 
+				brcm,pull = <2>;
+				label = "mdio-gpio-mdio";
+			};
+		};
+	};
+
+};
+
+
