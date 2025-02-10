@@ -1,0 +1,3 @@
+[submodule "win32_mcp2210_c/hidapi"]
+	path = win32_mcp2210_c/hidapi
+	url = https://github.com/libusb/hidapi

@@ -1,0 +1,3 @@
+// the configured options and settings for Tutorial
+#define testhid_VERSION_MAJOR @Tutorial_VERSION_MAJOR@
+#define testhid_VERSION_MINOR @Tutorial_VERSION_MINOR@
