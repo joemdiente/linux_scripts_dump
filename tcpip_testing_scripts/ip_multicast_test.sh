@@ -18,3 +18,8 @@ SIP="192.168.137.1"
 sudo ef tx $IF \
 eth smac $TEST_MAC2 dmac $DMAC_REPORT \
 ipv4 sip $SIP dip $DIP_V3 ttl 1 
+
+# sudo ef tx $IF \
+# eth smac $TEST_MAC2 dmac $DMAC_REPORT \
+# ctag vid 100 pcp 1 et ip \
+# ipv4 sip 10.10.10.10 dip 20.20.20.20 \
