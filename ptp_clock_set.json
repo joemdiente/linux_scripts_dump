@@ -20,6 +20,5 @@
             "filterType": "basicPhaseLow",
             "pathTraceEnable": false
         }
-    ],
-    "id": "jsonrpc"
+    ]
 }
