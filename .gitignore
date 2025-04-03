@@ -23,3 +23,4 @@ mdio_bitbang_cm4/mepa_mdio-tool_connector
 .vscode/tasks.json
 mdio_bitbang_cm4/mepa_test
 win32_mcp2210_c/my_test_hid_app_build_dir/*
+xstax_custom_app/example_native
