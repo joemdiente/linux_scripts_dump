@@ -23,7 +23,7 @@ MAIL_ENV_PASSWORD=your_email_password
 APP_ENV=production
 APP_DEBUG=false
 APP_KEY=base64:8YQs1CLeuRfclPYEfMB0qOcRHKeUePUeuZ0V8qpzux8=
-APP_URL=http://192.168.137.1:8080
+APP_URL=http://localhost:8080
 APP_TIMEZONE=US/Pacific
 APP_LOCALE=en
   
