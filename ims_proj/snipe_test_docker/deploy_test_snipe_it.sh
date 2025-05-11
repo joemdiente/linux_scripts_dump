@@ -9,6 +9,7 @@
 # sudo docker run -d -p 8080:80 --name="snipeit" --link snipe-mysql:mysql --env-file=test_snipe_it_env --mount source=snipe-vol,dst=/var/lib/snipeit snipe/snipe-it:v6.1.0
 
 # New
+# Run commands below for initial setup
 sudo apt-get update
 sudo apt-get install ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
@@ -20,7 +21,9 @@ echo \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+####
 
+## General setup snipe-IT
 mkdir snipe_test_sandbox
 cd snipe_test_sandbox
 curl https://raw.githubusercontent.com/snipe/snipe-it/master/docker-compose.yml --output docker-compose.yml
@@ -28,5 +31,5 @@ curl https://raw.githubusercontent.com/snipe/snipe-it/master/.env.docker --outpu
 
 echo "Modify .env and docker-compose.yml!!!"
 
-docker compose run --rm app php artisan key:generate --show
-docker compose up -d
+sudo docker compose run --rm app php artisan key:generate --show
+sudo docker compose up -d

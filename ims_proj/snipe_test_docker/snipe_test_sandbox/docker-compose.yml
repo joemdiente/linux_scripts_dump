@@ -6,12 +6,12 @@ volumes:
 
 services:
   app:
-    image: snipe/snipe-it:v8.0.4
+    image: snipe/snipe-it:${APP_VERSION:-latest}
     restart: unless-stopped
     volumes:
       - storage:/var/lib/snipeit
     ports:
-      - "8080:80"
+      - "${APP_PORT:-8000}:80"
     depends_on:
       db:
         condition: service_healthy
@@ -25,10 +25,10 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: test
-      MYSQL_USER: test
-      MYSQL_PASSWORD: test
-      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     healthcheck:
       # https://mariadb.com/kb/en/using-healthcheck-sh/#compose-file-example
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
