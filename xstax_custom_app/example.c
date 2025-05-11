@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <fcntl.h>
 
 int main() {
 //   FILE *file;
@@ -36,7 +37,17 @@ int main() {
 
     printf("Example code ran successfully\r\n");
 
-    while(1); // Running as service
+    // Use fopen to create the file in write mode ("w")
+    int fd = open("/tmp/example.ready", O_RDWR | O_CREAT, 0644);
+
+    // Check if the file was created successfully
+    if (fd == -1) {
+        perror("Error creating file");
+        return 1; // Indicate an error
+    }
+  
+    printf("File example.ready created successfully.\n");
+    // while(1); // Running as service
 
     return 0; // Indicate successful execution
 }

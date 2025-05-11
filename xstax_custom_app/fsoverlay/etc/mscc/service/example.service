@@ -6,5 +6,5 @@ name = example
 type = service
 # depend = 
 cmd = /usr/bin/example
-#on_error = ignore
-ready_file = /tmp/example.ready
+on_error = ignore
+#ready_file = /tmp/example.ready
