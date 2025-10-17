@@ -46,3 +46,6 @@ while :; do clear && tc -s qdisc show dev eth0 ingress && tc -s filter show dev 
 sudo ef tx enxf8e43bedf19d \
 eth smac 00:01:C1:00:00:02 dmac 01:00:5e:00:00:16 \
 ipv4 sip 192.168.137.1 dip 224.0.0.22 ttl 1
+
+
+# Not working
