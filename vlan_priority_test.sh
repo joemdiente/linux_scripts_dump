@@ -84,3 +84,17 @@ if [ "$1" = "client" ];
         echo " Now run # iperf -c 192.168.20.2 -B 192.168.20.50 -p 5220"
         exit 1
 fi
+
+if [ "$1" = "iperf_client" ]
+    then 
+        echo " Now run # iperf -c 192.168.10.2 -B 192.168.10.50 -p 5210"
+        echo " Now run # iperf -c 192.168.20.2 -B 192.168.20.50 -p 5220"
+        exit 1
+fi
+
+if [ "$1" = "iperf_server" ]
+    then 
+        echo " Now run # iperf -s -B 192.168.10.2 -p 5210"
+        echo " Now run # iperf -s -B 192.168.20.2 -p 5220"
+        exit 1
+fi
