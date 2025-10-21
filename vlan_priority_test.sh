@@ -46,22 +46,23 @@ if [ "$1" = "server" ];
         echo " Setting up VLAN 10."
         sudo ./vlan.sh add $server_eth 10
         sudo ip add add 192.168.10.2/24 dev vlan.10
-        sudo ip link set dev vlan.10 type vlan egress 0:7
+        sudo ip link set dev vlan.10 type vlan egress 0:1
         sudo ip link set dev vlan.10 up
-        echo " Adding IP Done; Setting VLAN 10 with PRIO 7 Done."
+        echo " Adding IP Done; Setting VLAN 10 with PRIO 1 Done."
         
         echo " Setting up VLAN 20."
         sudo ./vlan.sh add $server_eth 20
         sudo ip add add 192.168.20.2/24 dev vlan.20
-        sudo ip link set dev vlan.20 type vlan egress 0:5
+        sudo ip link set dev vlan.20 type vlan egress 0:3
         sudo ip link set dev vlan.20 up
-        echo " Adding IP Done; Setting VLAN 20 with PRIO 5 Done."
+        echo " Adding IP Done; Setting VLAN 20 with PRIO 3 Done."
 
         echo " Setting up VLAN 30."
         sudo ./vlan.sh add $server_eth 30
         sudo ip add add 192.168.30.2/24 dev vlan.30
+        sudo ip link set dev vlan.30 type vlan egress 0:5
         sudo ip link set dev vlan.30 up
-        echo " Adding IP Done; Setting VLAN 30 with PRIO 0 Done."
+        echo " Adding IP Done; Setting VLAN 30 with PRIO 5 Done."
         exit 1
 fi
 
@@ -74,22 +75,23 @@ if [ "$1" = "client" ];
         echo " Setting up VLAN 10."
         sudo ./vlan.sh add $client_eth 10
         sudo ip add add 192.168.10.50/24 dev vlan.10
-        sudo ip link set dev vlan.10 type vlan egress 0:7
+        sudo ip link set dev vlan.10 type vlan egress 0:1
         sudo ip link set dev vlan.10 up
-        echo " Adding IP Done; Setting VLAN 10 with PRIO 7 Done."
+        echo " Adding IP Done; Setting VLAN 10 with PRIO 1 Done."
         
         echo " Setting up VLAN 20."
         sudo ./vlan.sh add $client_eth 30
         sudo ip add add 192.168.20.50/24 dev vlan.20
-        sudo ip link set dev vlan.20 type vlan egress 0:5
+        sudo ip link set dev vlan.20 type vlan egress 0:3
         sudo ip link set dev vlan.20 up
-        echo " Adding IP Done; Setting VLAN 20 with PRIO 5 Done."
+        echo " Adding IP Done; Setting VLAN 20 with PRIO 3 Done."
 
         echo " Setting up VLAN 30."
         sudo ./vlan.sh add $client_eth 30
         sudo ip add add 192.168.30.50/24 dev vlan.30
+        sudo ip link set dev vlan.30 type vlan egress 0:5
         sudo ip link set dev vlan.30 up
-        echo " Adding IP Done; Setting VLAN 30 with PRIO 0 Done."
+        echo " Adding IP Done; Setting VLAN 30 with PRIO 5 Done."
         exit 1
 fi
 
