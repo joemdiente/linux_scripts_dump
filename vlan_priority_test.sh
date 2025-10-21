@@ -80,7 +80,7 @@ if [ "$1" = "client" ];
         echo " Adding IP Done; Setting VLAN 10 with PRIO 1 Done."
         
         echo " Setting up VLAN 20."
-        sudo ./vlan.sh add $client_eth 30
+        sudo ./vlan.sh add $client_eth 20
         sudo ip add add 192.168.20.50/24 dev vlan.20
         sudo ip link set dev vlan.20 type vlan egress 0:3
         sudo ip link set dev vlan.20 up
