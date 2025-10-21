@@ -96,17 +96,33 @@ if [ "$1" = "client" ];
 fi
 
 if [ "$1" = "iperf_client" ]
-    then 
-        echo " Now run # iperf3 -c 192.168.10.2 -B 192.168.10.50 -p 5210 -b 160k"
-        echo " Now run # iperf3 -c 192.168.20.2 -B 192.168.20.50 -p 5220 -b 160k"
-        echo " Now run # iperf3 -c 192.168.30.2 -B 192.168.30.50 -p 5230 -b 160k"
-        exit 1
+    then
+        if [ "$2" = "run" ]
+            then
+                bash -c "iperf3 -c 192.168.10.2 -B 192.168.10.50 -p 5210 -b 160k"
+                bash -c "iperf3 -c 192.168.20.2 -B 192.168.20.50 -p 5220 -b 160k"
+                bash -c "iperf3 -c 192.168.30.2 -B 192.168.30.50 -p 5230 -b 160k"
+                exit 1
+        else 
+            echo " Now run # iperf3 -c 192.168.10.2 -B 192.168.10.50 -p 5210 -b 160k"
+            echo " Now run # iperf3 -c 192.168.20.2 -B 192.168.20.50 -p 5220 -b 160k"
+            echo " Now run # iperf3 -c 192.168.30.2 -B 192.168.30.50 -p 5230 -b 160k"
+            exit 1
+        fi
 fi
 
 if [ "$1" = "iperf_server" ]
-    then 
-        echo " Now run # iperf3 -s -B 192.168.10.2 -p 5210"
-        echo " Now run # iperf3 -s -B 192.168.20.2 -p 5220"
-        echo " Now run # iperf3 -s -B 192.168.30.2 -p 5230"
-        exit 1
+    then
+        if [ "$2" = "run" ]
+            then
+                gnome-terminal --tab -- iperf3 -s -B 192.168.10.2 -p 5210
+                gnome-terminal --tab -- iperf3 -s -B 192.168.20.2 -p 5220
+                gnome-terminal --tab -- iperf3 -s -B 192.168.30.2 -p 5230
+                exit 1
+        else 
+            echo " Now run # iperf3 -s -B 192.168.10.2 -p 5210"
+            echo " Now run # iperf3 -s -B 192.168.20.2 -p 5220"
+            echo " Now run # iperf3 -s -B 192.168.30.2 -p 5230"
+            exit 1
+        fi
 fi
