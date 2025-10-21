@@ -27,13 +27,15 @@ do
     echo "PHYREG[$x]"
     mdio f* phy 0 raw $x
 done
-mdio f* phy 0 raw 0x00 0x4900
-mdio f* phy 0 raw 0x1b 0x8000
-mdio f* phy 0 raw 0x11 0x0200
-mdio f* phy 0 raw 0x00 0x4500
+mdio f* phy 0 raw 0x00 0x8000
+sleep 10
+mdio f* phy 0 raw 0 0x0500
+mdio f* phy 0 raw 27 0xA800
+mdio f* phy 0 raw 17 0x0200
+mdio f* phy 0 raw 0 0x0500
 mdio f* phy 0 raw 0x00
-mdio f* phy 0 raw 0x1b
-mdio f* phy 0 raw 0x11
+mdio f* phy 0 raw 27
+mdio f* phy 0 raw 17
 
 mdio f* phy 0 raw 0x11 0x0000
 ## phytool

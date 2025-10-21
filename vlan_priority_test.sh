@@ -80,8 +80,8 @@ if [ "$1" = "client" ];
         sudo ip link set dev vlan.20 up
         echo " Adding IP Done; Setting VLAN 10 with PRIO 0 Done."
         echo " " 
-        echo " Now run # iperf -c 192.168.10.2 -B 192.168.10.50 -p 5210"
-        echo " Now run # iperf -c 192.168.20.2 -B 192.168.20.50 -p 5220"
+        echo " Now run # iperf -c 192.168.10.2 -B 192.168.10.50 -p 5210 -b 160k"
+        echo " Now run # iperf -c 192.168.20.2 -B 192.168.20.50 -p 5220 -b 160k"
         exit 1
 fi
 
