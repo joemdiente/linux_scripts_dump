@@ -1,6 +1,6 @@
 #!/bin/sh
 
-IF=enxf8e43bedf19d
+IF=enx34298f7001a5
 
 # Destination
 DMAC_QUERY="01:00:5e:00:00:01"
