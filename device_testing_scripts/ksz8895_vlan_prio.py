@@ -1,4 +1,5 @@
 import spidev
+import random
 
 # Initialize SPI
 spi = spidev.SpiDev()
@@ -11,12 +12,84 @@ spi.max_speed_hz = 1000000  # 1 MHz
 spi.mode = 0b00             # SPI Mode 0 (CPOL=0, CPHA=0)
 spi.bits_per_word = 8       # Standard 8-bit communication
 
-# Read registers, 0x03 (read), 0x00 chip id 0, 0x01 chip id 1, two values
-to_send = [0x03, 0x00, 0x01, 0x00, 0x00]
+def print_list_in_hex(x):
+    for y, z in enumerate(x):
+        print(f" Index({y}): 0x{z:02X}")
+### Switch Read/Write Functions
+    # in: reg_start_addr = start address of switch register
+    #     count = number of reads
+    # out: return value = list
+def ksz8895_reg_read(reg_start_addr, count):
 
-# Perform full-duplex transfer
-# response will be a list of the same length as to_send
-response = spi.xfer2(to_send)
+    # Register read command (0x03)
+    read_xfer = [0x03]
 
-# Print response in hex format
-print("Received (Hex):", [hex(x) for x in response])
+    # append read address
+    read_xfer.append(reg_start_addr)
+
+    # append dummy bytes based on read count
+    for x in range(count):
+        read_xfer.append(0x00)
+
+    # xfer2 keeps CS (Chip Select) asserted throughout the transaction
+    # Input must be a list, even for a single byte
+    resp = spi.xfer2(read_xfer)
+
+    # Return index 2 up to last, index 0 and 1 are garbage.
+    return resp[2:] 
+
+# in: reg_start_addr = start address of switch register
+#     value = list of values to write. 
+# out: none
+def ksz8895_reg_write(reg_start_addr, val):
+
+    # Register write command (0x02)
+    write_xfer = [0x02]
+
+    # # Append write address
+    write_xfer.append(reg_start_addr)
+
+    # # Append data to write (use extend to prevent list within a list)
+    write_xfer.extend(val)
+
+    # xfer2 keeps CS (Chip Select) asserted throughout the transaction
+    # Input must be a list, even for a single byte
+    spi.xfer2(write_xfer)
+
+    # No return
+
+######## Start of Main Application #####
+
+test = 0
+#### Test Code Only
+if test:
+    # Read registers, 0x00 chip id 0, 0x01 chip id 1, two values
+    print("Test read to ksz8895....")
+    val = ksz8895_reg_read(0x00, 1)
+    print_list_in_hex(val)
+
+    # Write registers, Port x Control 3-4 (0xX3) Default Tag[15:8] can be used as scratch pad.
+    test_value = [ random.randrange(0, 255), random.randrange(0,255)]
+    print("test_value:")
+    print_list_in_hex(test_value)
+
+    print("Test write to ksz8895....")
+    ksz8895_reg_write(0x13, test_value)
+    
+    print("Test write read back....")
+    val = ksz8895_reg_read(0x13, 2)
+    print_list_in_hex(val)
+
+    # Reset Port x Control 3-4
+    print("Reset written registers....")
+    test_value = [0x00, 0x01]
+    ksz8895_reg_write(0x13, test_value)
+    print_list_in_hex(ksz8895_reg_read(0x13, 2))
+
+    print("Done....")
+#### Test Code Only
+
+print("Test Priority Mapping")
+
+
+print("Test done!")
