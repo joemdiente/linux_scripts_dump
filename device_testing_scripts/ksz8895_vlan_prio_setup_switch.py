@@ -12,9 +12,10 @@ spi.max_speed_hz = 1000000  # 1 MHz
 spi.mode = 0b00             # SPI Mode 0 (CPOL=0, CPHA=0)
 spi.bits_per_word = 8       # Standard 8-bit communication
 
-def print_list_in_hex(x):
-    for y, z in enumerate(x):
-        print(f" Index({y}): 0x{z:02X}")
+def print_list_in_hex(x,y):
+    for z in y:
+        print(f"[dbg]rd_reg(0x{x:02X}): 0x{z:02X}")
+
 ### Switch Read/Write Functions
     # in: reg_start_addr = start address of switch register
     #     count = number of reads
@@ -57,6 +58,9 @@ def ksz8895_reg_write(reg_start_addr, val):
     spi.xfer2(write_xfer)
 
     # No return
+def ksz8895_reg_write_verify(reg_addr, val):
+    ksz8895_reg_write(reg_addr, val)
+    print(f"[dbg]({reg_addr:02X}) wr: 0x{val[0]:02X} == rd: 0x{ksz8895_reg_read(reg_addr, 1)[0]:02X}")
 
 ######## Start of Main Application #####
 
@@ -89,7 +93,47 @@ if test:
     print("Done....")
 #### Test Code Only
 
-print("Test Priority Mapping")
+### Code Start ###
+print(" Mirror Port 5 to Port 1")
+# Port 1 Control 1 Enable Sniffer Port
+ksz8895_reg_write_verify(0x11, [0x9F]) 
+# Port 5 Control 1 Enable Transmit Sniff
+ksz8895_reg_write_verify(0x51, [0x3F])
 
+print("Port 2 and 4 802.1p enable = 1")
+ksz8895_reg_write_verify(0x20, [0x20]) 
+ksz8895_reg_write_verify(0x40, [0x20]) 
+
+print("Port 2 and 4 4 Queue Split Enable = 1")
+# Port 2 and 4 Control 9 4 Queue Split Enable
+ksz8895_reg_write_verify(0xC1, [0x02])
+ksz8895_reg_write_verify(0xE1, [0x02])
+
+print("Port 5 802.1p enable = 1, Two Queue Split Enable = 0")
+# Port 5 Control 0 802.1p enable
+ksz8895_reg_write_verify(0x50, [0x20]) 
+
+print("Port 5 4 Queue Split Enable = 1")
+# Port 5 Control 9 4 Queue Split Enable
+ksz8895_reg_write_verify(0xF1, [0x02])
+
+print(" Port 2,4 and 5 Queue 3 Strict Priority")
+# Port 5 Control 10
+ksz8895_reg_write_verify(0xC2, [0x00])
+ksz8895_reg_write_verify(0xE2, [0x00])
+ksz8895_reg_write_verify(0xF2, [0x00])
+
+# print(" Port 5 Queue 0 Strict Priority")
+# # Port 5 Control 13
+# ksz8895_reg_write_verify(0xF5, [0x00])
+
+# Start switch
+ksz8895_reg_write_verify(0x01,[0x01])
+start_switch = ksz8895_reg_read(0x1,1)
+if start_switch == [0x61]:
+    print("Switch has started")
+else:
+    print("Switch has stopped or on reset")
 
 print("Test done!")
+spi.close()
