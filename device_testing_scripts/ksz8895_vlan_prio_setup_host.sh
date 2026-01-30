@@ -1,5 +1,4 @@
 #!/bin/sh
-
 #
 # Host is SAMA7D65 Curiosity
 #

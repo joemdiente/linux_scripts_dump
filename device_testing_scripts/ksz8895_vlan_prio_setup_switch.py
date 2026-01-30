@@ -60,13 +60,9 @@ def ksz8895_reg_write(reg_start_addr, val):
     # No return
 def ksz8895_reg_write_verify(reg_addr, val):
     ksz8895_reg_write(reg_addr, val)
-    print(f"[dbg]({reg_addr:02X}) wr: 0x{val[0]:02X} == rd: 0x{ksz8895_reg_read(reg_addr, 1)[0]:02X}")
+    print(f"[dbg](0x{reg_addr:02X}) wr: 0x{val[0]:02X} == rd: 0x{ksz8895_reg_read(reg_addr, 1)[0]:02X}")
 
-######## Start of Main Application #####
-
-test = 0
-#### Test Code Only
-if test:
+def test_code():
     # Read registers, 0x00 chip id 0, 0x01 chip id 1, two values
     print("Test read to ksz8895....")
     val = ksz8895_reg_read(0x00, 1)
@@ -90,10 +86,13 @@ if test:
     ksz8895_reg_write(0x13, test_value)
     print_list_in_hex(ksz8895_reg_read(0x13, 2))
 
-    print("Done....")
-#### Test Code Only
+    print("Test Done....")
 
-### Code Start ###
+######## Start of Main Application #####
+#
+# KSZ8895 802.1p-based priority test
+#
+
 print(" Mirror Port 5 to Port 1")
 # Port 1 Control 1 Enable Sniffer Port
 ksz8895_reg_write_verify(0x11, [0x9F]) 
@@ -109,7 +108,7 @@ print("Port 2 and 4 4 Queue Split Enable = 1")
 ksz8895_reg_write_verify(0xC1, [0x02])
 ksz8895_reg_write_verify(0xE1, [0x02])
 
-print("Port 5 802.1p enable = 1, Two Queue Split Enable = 0")
+print("Port 5 Two Queue Split Enable = 0, 802.1p enable = 1")
 # Port 5 Control 0 802.1p enable
 ksz8895_reg_write_verify(0x50, [0x20]) 
 
@@ -117,17 +116,17 @@ print("Port 5 4 Queue Split Enable = 1")
 # Port 5 Control 9 4 Queue Split Enable
 ksz8895_reg_write_verify(0xF1, [0x02])
 
-print(" Port 2,4 and 5 Queue 3 Strict Priority")
+print(" Port 5 Queue 3 Strict Priority")
 # Port 5 Control 10
-ksz8895_reg_write_verify(0xC2, [0x00])
-ksz8895_reg_write_verify(0xE2, [0x00])
 ksz8895_reg_write_verify(0xF2, [0x00])
 
-# print(" Port 5 Queue 0 Strict Priority")
-# # Port 5 Control 13
-# ksz8895_reg_write_verify(0xF5, [0x00])
+# ksz8895_reg_write_verify(0xC2, [0x00])
+# ksz8895_reg_write_verify(0xE2, [0x00])
+# print("Read Prio_2Q Register")
+# print(f"Reg 0x82 value: 0d{ksz8895_reg_read(0x82,1)}")
 
 # Start switch
+print("\n\nRead Start Switch")
 ksz8895_reg_write_verify(0x01,[0x01])
 start_switch = ksz8895_reg_read(0x1,1)
 if start_switch == [0x61]:
