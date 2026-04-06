@@ -26,9 +26,12 @@
 #include "port_api.h"
 #include "microchip/ethernet/common.h"
 #include "vtss/appl/module_id.h"
-
 #include "stdlib.h"
 #include "string.h"
+
+// For Trace
+#include "example_mod_trace.h"
+#include "vtss_trace_api.h"
 
 extern "C" int example_mod_icli_cmd_register();
 
@@ -80,6 +83,8 @@ mesa_rc example_mod_packet_transmit(u32 packet_len)
         printf("Frame transmit on port %d failed", my_tx_props.tx_info.dst_port);
         return -1;
     }
+    
+    return MESA_RC_OK;
 
 }
 /* Packet Receive Filter Callback */
@@ -91,6 +96,25 @@ static BOOL example_mod_cb(void *contxt, const u8 *const frm, const mesa_packet_
     printf("=======================================\n");
     return true;
 }
+
+static vtss_trace_reg_t trace_reg =
+{
+    /*.module_id = */VTSS_TRACE_MODULE_ID,
+    /*.name     = */"example_mod",
+    /*.descr    = */"example custom module"
+};
+
+static vtss_trace_grp_t trace_grps[] = 
+{
+    /*[VTSS_TRACE_EXAMPLE_MOD_GRP_DEFAULT] = */{
+        /*.name     = */"default",
+        /*.descr    = */"Default",
+        /*.lvl      = */VTSS_TRACE_LVL_WARNING
+
+    }
+};
+
+VTSS_TRACE_REGISTER(&trace_reg, trace_grps);
 
 /* Initialize module */
 mesa_rc example_mod_init(vtss_init_data_t *data) {
