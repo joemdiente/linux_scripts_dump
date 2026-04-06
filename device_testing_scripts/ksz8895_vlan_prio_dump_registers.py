@@ -1,5 +1,5 @@
 import spidev
-import random
+import sys
 
 # Initialize SPI
 spi = spidev.SpiDev()
@@ -62,32 +62,31 @@ def ksz8895_reg_write_verify(reg_addr, val):
     ksz8895_reg_write(reg_addr, val)
     print(f"[dbg](0x{reg_addr:02X}) wr: 0x{val[0]:02X} == rd: 0x{ksz8895_reg_read(reg_addr, 1)[0]:02X}")
 
-######## Start of Main Application #####
-#
-# KSZ8895 Port Mirroring
-#
+def display_hexmate_block():
+    # Fetch all 256 registers in one block read
+    try:
+        data = ksz8895_reg_read(0, 256)
+    except Exception as e:
+        print(f"Error reading hardware: {e}")
+        return
 
-print(" Mirror Port 5 to Port 1")
-# Remove old configuration on all ports
-ksz8895_reg_write_verify(0x11, [0x1F]) 
-ksz8895_reg_write_verify(0x21, [0x1F]) 
-ksz8895_reg_write_verify(0x31, [0x1F]) 
-ksz8895_reg_write_verify(0x41, [0x1F]) 
-ksz8895_reg_write_verify(0x51, [0x1F]) 
+    # Print Column Header
+    print("\n     00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F")
+    print("      " + "-- " * 16)
 
-# Port 1 Control 1 Enable Sniffer Port
-ksz8895_reg_write_verify(0x11, [0x9F]) 
-# Port 5 Control 1 Enable Transmit Sniff
-ksz8895_reg_write_verify(0x51, [0x3F])
+    # Iterate through the list in chunks of 16
+    for row_start in range(0, 256, 16):
+        # Print Row Address
+        sys.stdout.write(f"{row_start:02X} | ")
+        
+        # Get the 16 bytes for this row
+        row_data = data[row_start : row_start + 16]
+        
+        for byte in row_data:
+            sys.stdout.write(f"{byte:02X} ")
+            
+        sys.stdout.write("\n")
+    print()
 
-# Start switch
-print("\n\nRead Start Switch")
-ksz8895_reg_write_verify(0x01,[0x01])
-start_switch = ksz8895_reg_read(0x1,1)
-if start_switch == [0x61]:
-    print("Switch has started")
-else:
-    print("Switch has stopped or on reset")
-
-print("Test done!")
-spi.close()
+if __name__ == "__main__":
+    display_hexmate_block()

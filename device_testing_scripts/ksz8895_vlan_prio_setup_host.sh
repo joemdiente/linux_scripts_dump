@@ -19,3 +19,20 @@ ip link set dev vlan.20 type vlan egress 0:0 # All SO_PRIORITY = 0 to PCP 0
 ip link set dev vlan.20 up
 
 echo "Host setup done...."
+
+#
+# Host is ugreen-0
+#
+sudo ip link set dev ugreen-0 up
+sudo modprobe "8021q"
+echo "Setting ip 192.168.10.1/24 to ugreen-0 VLAN 10..."
+sudo ip link add link ugreen-0 name vlan.10 type vlan id 10
+sudo ip add add 192.168.10.1/24 dev vlan.10
+sudo ip link set dev vlan.10 type vlan egress 0:0 # All SO_PRIORITY = 0 to PCP 0
+sudo ip link set dev vlan.10 up
+
+echo "Setting ip 192.168.20.1/24 to ugreen-0 VLAN 20..."
+sudo ip link add link ugreen-0 name vlan.20 type vlan id 20
+sudo ip add add 192.168.20.1/24 dev vlan.20
+sudo ip link set dev vlan.20 type vlan egress 0:0 # All SO_PRIORITY = 0 to PCP 0
+sudo ip link set dev vlan.20 up

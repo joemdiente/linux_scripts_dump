@@ -62,68 +62,61 @@ def ksz8895_reg_write_verify(reg_addr, val):
     ksz8895_reg_write(reg_addr, val)
     print(f"[dbg](0x{reg_addr:02X}) wr: 0x{val[0]:02X} == rd: 0x{ksz8895_reg_read(reg_addr, 1)[0]:02X}")
 
-def test_code():
-    # Read registers, 0x00 chip id 0, 0x01 chip id 1, two values
-    print("Test read to ksz8895....")
-    val = ksz8895_reg_read(0x00, 1)
-    print_list_in_hex(val)
-
-    # Write registers, Port x Control 3-4 (0xX3) Default Tag[15:8] can be used as scratch pad.
-    test_value = [ random.randrange(0, 255), random.randrange(0,255)]
-    print("test_value:")
-    print_list_in_hex(test_value)
-
-    print("Test write to ksz8895....")
-    ksz8895_reg_write(0x13, test_value)
-    
-    print("Test write read back....")
-    val = ksz8895_reg_read(0x13, 2)
-    print_list_in_hex(val)
-
-    # Reset Port x Control 3-4
-    print("Reset written registers....")
-    test_value = [0x00, 0x01]
-    ksz8895_reg_write(0x13, test_value)
-    print_list_in_hex(ksz8895_reg_read(0x13, 2))
-
-    print("Test Done....")
-
 ######## Start of Main Application #####
 #
 # KSZ8895 802.1p-based priority test
-#
+# EVB-KSZ8895 EDS2
+# [1]  [3]
+# [2]  [4]
+#  1 - Host
+# 2,4 - Client
+#########################################
 
-print(" Mirror Port 5 to Port 1")
-# Port 1 Control 1 Enable Sniffer Port
-ksz8895_reg_write_verify(0x11, [0x9F]) 
-# Port 5 Control 1 Enable Transmit Sniff
-ksz8895_reg_write_verify(0x51, [0x3F])
+# Set all ports to four-queue split
+ksz8895_reg_write_verify(0xB1, [0x02])
+ksz8895_reg_write_verify(0xC1, [0x02])
+ksz8895_reg_write_verify(0xD1, [0x02])
+ksz8895_reg_write_verify(0xE1, [0x02])
+ksz8895_reg_write_verify(0xF1, [0x02])
 
+# Configure Client Ports
 print("Port 2 and 4 802.1p enable = 1")
 ksz8895_reg_write_verify(0x20, [0x20]) 
 ksz8895_reg_write_verify(0x40, [0x20]) 
 
-print("Port 2 and 4 4 Queue Split Enable = 1")
-# Port 2 and 4 Control 9 4 Queue Split Enable
+print("Port 2 and 4 four Queue Split Enable = 1")
 ksz8895_reg_write_verify(0xC1, [0x02])
 ksz8895_reg_write_verify(0xE1, [0x02])
 
-print("Port 5 Two Queue Split Enable = 0, 802.1p enable = 1")
-# Port 5 Control 0 802.1p enable
-ksz8895_reg_write_verify(0x50, [0x20]) 
+#Configure Host Port
+print("Port 1 802.1p enable = 1")
+ksz8895_reg_write_verify(0x10, [0x20]) 
 
-print("Port 5 4 Queue Split Enable = 1")
-# Port 5 Control 9 4 Queue Split Enable
-ksz8895_reg_write_verify(0xF1, [0x02])
+print("Port 1 four Queue Split Enable = 1")
+ksz8895_reg_write_verify(0xB1, [0x02])
 
-print(" Port 5 Queue 3 Strict Priority")
-# Port 5 Control 10
-ksz8895_reg_write_verify(0xF2, [0x00])
+print(" Port 1 Queue 3 Strict Priority") # Strict Priority
+ksz8895_reg_write_verify(0xB2, [0x00])
 
-# ksz8895_reg_write_verify(0xC2, [0x00])
-# ksz8895_reg_write_verify(0xE2, [0x00])
-# print("Read Prio_2Q Register")
-# print(f"Reg 0x82 value: 0d{ksz8895_reg_read(0x82,1)}")
+print(" Port 1 Queue 2 4 packets")
+ksz8895_reg_write_verify(0xB2, [0x84]) # Reflect Packet Number; 4
+
+print(" Port 1 Queue 1 2 packets")
+ksz8895_reg_write_verify(0xB2, [0x82]) # Reflect Packet Number; 2
+
+print(" Port 1 Queue 0 1 packets") 
+ksz8895_reg_write_verify(0xB2, [0x81]) # Reflect Packet Number; 1
+
+print(" Enable Queue-Based Egress Rate Limit")
+ksz8895_reg_write_verify(0x87, [0x24])
+
+# Limit low prio queues 0-2
+print(" Port 1 Queue 0, 1, 2, 3 Egress Rate Limit") 
+ksz8895_reg_write_verify(0xBB, [0x67]) #P1 Q0 192Kbps
+ksz8895_reg_write_verify(0xBC, [0x67]) #P1 Q1 192Kbps
+ksz8895_reg_write_verify(0xBD, [0x67]) #P1 Q2 192Kbps
+ksz8895_reg_write_verify(0xBE, [0x67]) #P1 Q3 192Kbps
+
 
 # Start switch
 print("\n\nRead Start Switch")

@@ -62,12 +62,38 @@ def ksz8895_reg_write_verify(reg_addr, val):
     ksz8895_reg_write(reg_addr, val)
     print(f"[dbg](0x{reg_addr:02X}) wr: 0x{val[0]:02X} == rd: 0x{ksz8895_reg_read(reg_addr, 1)[0]:02X}")
 
+def test_code():
+    # Read registers, 0x00 chip id 0, 0x01 chip id 1, two values
+    print("Test read to ksz8895....")
+    val = ksz8895_reg_read(0x00, 1)
+    print_list_in_hex(val)
+
+    # Write registers, Port x Control 3-4 (0xX3) Default Tag[15:8] can be used as scratch pad.
+    test_value = [ random.randrange(0, 255), random.randrange(0,255)]
+    print("test_value:")
+    print_list_in_hex(test_value)
+
+    print("Test write to ksz8895....")
+    ksz8895_reg_write(0x13, test_value)
+    
+    print("Test write read back....")
+    val = ksz8895_reg_read(0x13, 2)
+    print_list_in_hex(val)
+
+    # Reset Port x Control 3-4
+    print("Reset written registers....")
+    test_value = [0x00, 0x01]
+    ksz8895_reg_write(0x13, test_value)
+    print_list_in_hex(ksz8895_reg_read(0x13, 2))
+
+    print("Test Done....")
+
 ######## Start of Main Application #####
 #
 # KSZ8895 Port Mirroring
 #
 
-print(" Mirror Port 5 to Port 1")
+print(" Mirror Port 2 and 4 to Port 1")
 # Remove old configuration on all ports
 ksz8895_reg_write_verify(0x11, [0x1F]) 
 ksz8895_reg_write_verify(0x21, [0x1F]) 
@@ -77,8 +103,10 @@ ksz8895_reg_write_verify(0x51, [0x1F])
 
 # Port 1 Control 1 Enable Sniffer Port
 ksz8895_reg_write_verify(0x11, [0x9F]) 
-# Port 5 Control 1 Enable Transmit Sniff
-ksz8895_reg_write_verify(0x51, [0x3F])
+# Port 2 Control 1 Enable Receive Sniff
+ksz8895_reg_write_verify(0x21, [0x5F])
+# Port 4 Control 1 Enable Receive Sniff
+ksz8895_reg_write_verify(0x41, [0x5F])
 
 # Start switch
 print("\n\nRead Start Switch")
